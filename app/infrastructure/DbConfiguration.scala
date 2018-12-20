@@ -1,8 +1,12 @@
 package infrastructure
 
-import slick.basic.DatabaseConfig
-import slick.jdbc.JdbcProfile
+import cats.effect.{ContextShift, IO}
+import doobie.util.transactor.Transactor
+import play.api.db.Database
+import scala.concurrent.ExecutionContext
 
 trait DbConfiguration {
-  lazy val config = DatabaseConfig.forConfig[JdbcProfile]("default")
+  implicit val cs: ContextShift[IO]
+  def transactor(db: Database, ec: ExecutionContext) =
+    Transactor.fromConnection[IO](db.getConnection, ec)
 }

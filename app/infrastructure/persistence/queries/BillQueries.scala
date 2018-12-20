@@ -1,15 +1,23 @@
 package infrastructure.persistence.queries
 
-import infrastructure.persistence.tables.BillsTable
-import play.api.db.slick.HasDatabaseConfigProvider
-import slick.jdbc.JdbcProfile
+import doobie.util.query.Query0
+
+import doobie.implicits._
+
+import models.Bill
 
 trait BillQueries {
-  self: HasDatabaseConfigProvider[JdbcProfile] with BillsTable =>
 
-  import profile.api._
+  def selectAll: Query0[Bill] = {
+    sql"""
+      SELECT * from bills
+      """.query
+  }
 
-  val findByIdQuery = Compiled { (billId: Rep[Int]) =>
-    billsTable.filter(b => b.id === billId)
+  def selectById(id: Int): Query0[Bill] = {
+    sql"""
+      SELECT * from bills
+      WHERE id = $id
+      """.query[Bill]
   }
 }
