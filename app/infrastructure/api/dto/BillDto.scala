@@ -5,7 +5,7 @@ import models.Bill
 import play.api.libs.json.Json
 import utils.DateConversionService
 
-case class BillDto(description: String, price: BigDecimal, purchaseDate: String, location: String)
+case class BillDto(description: String, price: BigDecimal, purchase_date: String, location: String)
 
 object BillDto {
   implicit val jsonWrites = Json.writes[BillDto]
