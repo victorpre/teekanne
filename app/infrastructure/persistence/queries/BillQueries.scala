@@ -38,9 +38,9 @@ trait BillQueries {
     """.query[Bill]
   }
 
-  def insertBill(text: String, price: BigDecimal, purchaseDate: Date, location: String): ConnectionIO[Bill] = {
-    sql"insert into bills (text, price, purchase_date, location) values ($text, $price, $purchaseDate, $location)"
+  def insertBill(description: String, price: BigDecimal, purchaseDate: Date, location: String): ConnectionIO[Bill] = {
+    sql"insert into bills (description, price, purchase_date, location) values ($description, $price, $purchaseDate, $location)"
       .update
-      .withUniqueGeneratedKeys("id", "text", "price", "purchase_date","location")
+      .withUniqueGeneratedKeys("id", "description", "price", "purchase_date","location")
   }
 }

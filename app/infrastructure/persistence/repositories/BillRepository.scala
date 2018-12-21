@@ -15,7 +15,7 @@ trait BillRepository {
   def getAllBills: Future[List[Bill]]
   def getBillsFrom(date: Date): Future[List[Bill]]
   def getBillsBetween(from: Date, to: Date): Future[List[Bill]]
-  def addBill(text: String, price: BigDecimal, purchaseDate: Date, location: String): Future[Bill]
+  def addBill(description: String, price: BigDecimal, purchaseDate: Date, location: String): Future[Bill]
 
 }
 
