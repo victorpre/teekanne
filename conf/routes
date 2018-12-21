@@ -8,5 +8,10 @@ GET     /                           controllers.FrontendController.index()
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET     /api/summary                controllers.HomeController.appSummary
 
+# Bills endpoints
+GET     /api/bills/:id              controllers.BillController.getBill(id: Int)
+
+
+
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)
