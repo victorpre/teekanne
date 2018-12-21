@@ -1,6 +1,6 @@
 package infrastructure.persistence.queries
 
-import java.sql.Date
+import java.time.LocalDate
 
 import doobie.free.connection.ConnectionIO
 import doobie.util.query.Query0
@@ -22,14 +22,14 @@ trait BillQueries {
     """.query[Bill]
   }
 
-  def selectBillByPurchaseDate(purchaseDate: Date): Query0[Bill] = {
+  def selectBillByPurchaseDate(purchaseDate: LocalDate): Query0[Bill] = {
     sql"""
       SELECT * from bills
       WHERE purchase_date >= $purchaseDate
     """.query[Bill]
   }
 
-  def selectBillBetweenPurchaseDates(from: Date, to: Date): Query0[Bill] = {
+  def selectBillBetweenPurchaseDates(from: LocalDate, to: LocalDate): Query0[Bill] = {
     sql"""
       SELECT * from bills
       WHERE purchase_date >= $from
@@ -38,7 +38,7 @@ trait BillQueries {
     """.query[Bill]
   }
 
-  def insertBill(description: String, price: BigDecimal, purchaseDate: Date, location: String): ConnectionIO[Bill] = {
+  def insertBill(description: String, price: BigDecimal, purchaseDate: LocalDate, location: String): ConnectionIO[Bill] = {
     sql"insert into bills (description, price, purchase_date, location) values ($description, $price, $purchaseDate, $location)"
       .update
       .withUniqueGeneratedKeys("id", "description", "price", "purchase_date","location")

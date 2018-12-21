@@ -1,6 +1,6 @@
 package infrastructure.persistence.repositories
 
-import java.sql.Date
+import java.time.LocalDate
 
 import infrastructure.DbConfiguration
 import infrastructure.persistence.queries.BillQueries
@@ -13,9 +13,9 @@ import scala.concurrent.{ExecutionContext, Future}
 trait BillRepository {
   def getBillById(id: Int): Future[Option[Bill]]
   def getAllBills: Future[List[Bill]]
-  def getBillsFrom(date: Date): Future[List[Bill]]
-  def getBillsBetween(from: Date, to: Date): Future[List[Bill]]
-  def addBill(description: String, price: BigDecimal, purchaseDate: Date, location: String): Future[Bill]
+  def getBillsFrom(date: LocalDate): Future[List[Bill]]
+  def getBillsBetween(from: LocalDate, to: LocalDate): Future[List[Bill]]
+  def addBill(description: String, price: BigDecimal, purchaseDate: LocalDate, location: String): Future[Bill]
 
 }
 
@@ -37,15 +37,15 @@ class BillRepositoryImpl @Inject()(db: Database)
     selectAllBills.stream.compile.to[List].transact(xa).unsafeToFuture()
   }
 
-  override def getBillsFrom(date: Date): Future[List[Bill]] = {
+  override def getBillsFrom(date: LocalDate): Future[List[Bill]] = {
     selectBillByPurchaseDate(date).stream.compile.toList.transact(xa).unsafeToFuture()
   }
 
-  override def getBillsBetween(from: Date,to: Date): Future[List[Bill]] = {
+  override def getBillsBetween(from: LocalDate,to: LocalDate): Future[List[Bill]] = {
     selectBillBetweenPurchaseDates(from, to).stream.compile.toList.transact(xa).unsafeToFuture()
   }
 
-  override def addBill(text: String, price: BigDecimal, purchaseDate: Date, location: String): Future[Bill] = {
+  override def addBill(text: String, price: BigDecimal, purchaseDate: LocalDate, location: String): Future[Bill] = {
     insertBill(text, price, purchaseDate, location).transact(xa).unsafeToFuture()
   }
 }
