@@ -9,8 +9,8 @@ GET     /                           controllers.FrontendController.index()
 GET     /api/summary                controllers.HomeController.appSummary
 
 # Bills endpoints
-GET     /api/bills/:id              controllers.BillController.getBill(id: Int)
-GET     /api/bills                  controllers.BillController.getBillsBetween(from: String, to: String)
+GET     /api/expenses/:id              controllers.ExpenseController.getExpense(id: Int)
+GET     /api/expenses                  controllers.ExpenseController.getExpensesBetween(from: String, to: String)
 
 
 

@@ -1,12 +1,12 @@
 package modules
 
 import com.google.inject.AbstractModule
-import infrastructure.persistence.repositories.{BillRepository, BillRepositoryImpl}
+import infrastructure.persistence.repositories.{ExpenseRepository, ExpenseRepositoryImpl}
 
 class DbModule extends AbstractModule {
 
   override def configure() = {
-    bind(classOf[BillRepository])
-      .to(classOf[BillRepositoryImpl])
+    bind(classOf[ExpenseRepository])
+      .to(classOf[ExpenseRepositoryImpl])
   }
 }
