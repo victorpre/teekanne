@@ -1,4 +1,4 @@
 package models
-import java.sql.Date
+import java.time.LocalDate
 
-case class Bill(id: Int, text: String, price: BigDecimal, purchaseDate: Date)
+case class Bill(id: Int, description: String, price: BigDecimal, purchaseDate: LocalDate, location: String)

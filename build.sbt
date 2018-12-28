@@ -5,14 +5,19 @@ version := "1.0-SNAPSHOT"
 lazy val root = (project in file(".")).enablePlugins(PlayJava).settings(
   watchSources ++= (baseDirectory.value / "public/ui" ** "*").get
 )
+lazy val doobieVersion = "0.6.0"
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.7"
 
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
-libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.5"
-libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.0"
-libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "3.0.0"
+libraryDependencies += jdbc
+
+libraryDependencies ++= Seq(
+  "org.tpolecat" %% "doobie-core"     % doobieVersion,
+  "org.tpolecat" %% "doobie-postgres" % doobieVersion,
+  "org.tpolecat" %% "doobie-specs2"   % doobieVersion
+)
