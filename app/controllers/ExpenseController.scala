@@ -31,6 +31,6 @@ class ExpenseController @Inject()(repo: ExpenseRepository, cc: ControllerCompone
 
     for {
       futureExpenses <- repo.getExpensesBetween(fromDate,toDate)
-    } yield Ok(Json.toJson(futureExpenses.map(expense => ExpenseDto(expense))))
+    } yield Ok(Json.obj("collection" -> Json.toJson(futureExpenses.map(expense => ExpenseDto(expense)))))
   }
 }

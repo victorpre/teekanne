@@ -1,9 +1,11 @@
 package controllers
 
+import infrastructure.persistence.repositories.{ExpenseRepository}
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
 import play.api.test._
 import play.api.test.Helpers._
+import org.scalamock.scalatest.MockFactory
 
 /**
   * Add your spec here.
@@ -11,7 +13,7 @@ import play.api.test.Helpers._
   *
   * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
   */
-class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockFactory {
 
   "HomeController GET" should {
 
