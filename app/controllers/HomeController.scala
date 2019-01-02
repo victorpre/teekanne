@@ -5,15 +5,13 @@ import javax.inject._
 import models.Expense
 import play.api.libs.json.Json
 import play.api.mvc._
-import java.sql.Date
 
+import scala.concurrent.Future
 
-import scala.concurrent.{ExecutionContext, Future}
-
-class HomeController @Inject()(repo: ExpenseRepository, cc: ControllerComponents)
-                              (implicit ec: ExecutionContext)
+class HomeController @Inject()(cc: ControllerComponents, repo: ExpenseRepository)
   extends AbstractController(cc) {
 
+  implicit private val ec = cc.executionContext
 
   def appSummary = Action.async { implicit request =>
 

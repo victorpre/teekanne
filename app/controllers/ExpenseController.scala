@@ -7,12 +7,13 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import utils.DateConversionService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 
 class ExpenseController @Inject()(repo: ExpenseRepository, cc: ControllerComponents)
-                                 (implicit ec: ExecutionContext)
   extends AbstractController(cc) {
+
+  implicit private val ec = cc.executionContext
 
   def getExpense(id: Int)= Action.async { implicit request =>
     val maybeFutureExpense: Future[Option[Expense]] = repo.getExpenseById(id)
