@@ -10,7 +10,7 @@ import utils.DateConversionService
 import scala.concurrent.Future
 
 
-class ExpenseController @Inject()(repo: ExpenseRepository, cc: ControllerComponents)
+class ExpenseController @Inject()(cc: ControllerComponents, repo: ExpenseRepository)
   extends AbstractController(cc) {
 
   implicit private val ec = cc.executionContext
