@@ -8,6 +8,10 @@
 * [React: 16.2.0](https://reactjs.org/)
 * [Create React App: 1.0.17](https://github.com/facebookincubator/create-react-app)
 
+## Build
+
+![](https://travis-ci.org/victorpre/teekanne.svg?branch=master)
+
 ## How to use it?
 
 ### Prerequisites

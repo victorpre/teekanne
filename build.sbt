@@ -1,4 +1,4 @@
-name := """scala-play-react-seed"""
+name := """teekanne"""
 
 version := "1.0-SNAPSHOT"
 
@@ -21,3 +21,6 @@ libraryDependencies ++= Seq(
   "org.tpolecat" %% "doobie-postgres" % doobieVersion,
   "org.tpolecat" %% "doobie-specs2"   % doobieVersion
 )
+
+libraryDependencies += "org.scalamock" %% "scalamock" % "4.1.0" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % Test

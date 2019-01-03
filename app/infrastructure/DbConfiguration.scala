@@ -1,12 +1,18 @@
 package infrastructure
 
 import cats.effect.{ContextShift, IO}
+import com.typesafe.config.ConfigFactory
 import doobie.util.transactor.Transactor
-import play.api.db.Database
-import scala.concurrent.ExecutionContext
 
 trait DbConfiguration {
   implicit val cs: ContextShift[IO]
-  def transactor(db: Database, ec: ExecutionContext) =
-    Transactor.fromConnection[IO](db.getConnection, ec)
+
+  val config = ConfigFactory.load()
+
+  def xa = Transactor.fromDriverManager[IO](
+    "org.postgresql.Driver",
+    config.getString("db.default.url"),
+    config.getString("db.default.username"),
+    config.getString("db.default.password")
+  )
 }

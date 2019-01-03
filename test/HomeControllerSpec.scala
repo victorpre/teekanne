@@ -1,9 +1,12 @@
 package controllers
 
+import infrastructure.persistence.repositories.ExpenseRepository
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
 import play.api.test._
 import play.api.test.Helpers._
+import org.scalamock.scalatest.MockFactory
+import play.api.mvc.Results
 
 /**
   * Add your spec here.
@@ -11,7 +14,7 @@ import play.api.test.Helpers._
   *
   * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
   */
-class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class HomeControllerSpec extends PlaySpec with Results with MockFactory {
 
   "HomeController GET" should {
 
@@ -26,18 +29,8 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
     }
 
     "render the appSummary resource from the application" in {
-      val controller = inject[HomeController]
+      val controller = new HomeController(stubControllerComponents())
       val home = controller.appSummary().apply(FakeRequest(GET, "/summary"))
-
-      status(home) mustBe OK
-      contentType(home) mustBe Some("application/json")
-      val resultJson = contentAsJson(home)
-      resultJson.toString() mustBe """{"content":"Scala Play React Seed"}"""
-    }
-
-    "render the appSummary resource from the router" in {
-      val request = FakeRequest(GET, "/api/summary")
-      val home = route(app, request).get
 
       status(home) mustBe OK
       contentType(home) mustBe Some("application/json")
