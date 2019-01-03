@@ -6,7 +6,6 @@ import infrastructure.DbConfiguration
 import infrastructure.persistence.queries.ExpenseQueries
 import javax.inject.Inject
 import models.Expense
-import play.api.db.Database
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -19,15 +18,12 @@ trait ExpenseRepository {
 
 }
 
-class ExpenseRepositoryImpl @Inject()(db: Database)
-                                     (implicit ec: ExecutionContext)
+class ExpenseRepositoryImpl @Inject()(implicit ec: ExecutionContext)
   extends ExpenseRepository with DbConfiguration with ExpenseQueries   {
   import doobie.implicits._
   import cats.effect.IO
 
   override val cs = IO.contextShift(ec)
-
-  val xa = transactor(db, ec)
 
   override def getExpenseById(id: Int): Future[Option[Expense]] = {
     selectExpenseById(id).option.transact(xa).unsafeToFuture()
